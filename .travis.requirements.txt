@@ -1,4 +1,4 @@
-﻿PySide2
+﻿pyqt5
 rstr
 pygame
 psutil
