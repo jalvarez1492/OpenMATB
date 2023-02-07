@@ -96,8 +96,15 @@ class Task(QtWidgets.QWidget):
         # Compute next cursor coordinates (x,y)
         current_X, current_Y = self.widget.moveCursor()
 
+        # Open text file that external script (rt?) will write to
+        with open('EngagementIndex.txt') as EI:
+            index = EI.read()
+            
+        # for debugging
+        print(index)
         # If automatic solver : always correct cursor position
-        if self.parameters['automaticsolver']:
+        # if self.parameters['automaticsolver']:
+        if index == '1':
             x_input, y_input = self.widget.getAutoCompensation()
 
         # Else record manual compensatory movements
@@ -111,6 +118,7 @@ class Task(QtWidgets.QWidget):
                 if any([this_input != 0 for this_input in [x_input, y_input]]):
                     x_input, y_input = self.widget.getAutoCompensation()
 
+        
         # Modulate cursor position with potentials joystick inputs
         current_X += x_input
         current_Y += y_input
