@@ -2,8 +2,7 @@
 
 <b><a href="https://github.com/juliencegarra/OpenMATB/releases/download/1.1/OpenMATB_v1.1.000.zip">Click here to download the last binary for Windows (v1.1)</a></b>
 
-*NOTE*\n
-Requires: Python >=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <3.11
+*NOTE*: Requires: Python >=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <3.11
 
 @todo: PYSide6 will work with newer versions of Python. OpenMATB is written using PySide2. May rewrite using PySide6, functions are likely still backwards compatible with PySide2.
 
