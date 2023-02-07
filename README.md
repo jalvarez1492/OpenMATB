@@ -4,7 +4,7 @@
 
 *NOTE*: Requires: Python >=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <3.11
 
-@todo: PYSide6 will work with newer versions of Python. OpenMATB is written using PySide2. May rewrite using PySide6, functions are likely still backwards compatible with PySide2.
+@todo: PySide6 will work with newer versions of Python. OpenMATB is written using PySide2. May rewrite using PySide6, functions are likely still backwards compatible with PySide2.
 
 First presented at a NASA Technical memorandum (Comstock & Arnegard, 1992), the Multi-Attribute Task Battery (MATB) contained a set of interactive tasks that were representative of those performed in aircraft piloting. The MATB requires participants to engage in four tasks presented simultaneously on a computer screen. They consist of (1) a monitoring task, (2) a tracking task, (3) an auditory communication task, and (4) a resource management task. The display screen also encompasses a scheduling view (5) for displaying a chart of incoming task events
 
