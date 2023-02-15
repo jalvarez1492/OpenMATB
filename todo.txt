@@ -1,0 +1,2 @@
+1. Threading vs Multiprocessing
+2. Writing plugin vs doing it "externally"
