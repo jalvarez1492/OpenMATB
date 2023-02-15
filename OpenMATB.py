@@ -16,6 +16,11 @@ from Helpers import (QTExtensions, WLight, WPump, WCom,
                      WScale, WScheduler, WTank, WTrack, xeger)
 
 
+# FOR MULTIPROCESSING
+from multiprocessing import Process
+from process2 import multiproc_print_test
+import threading
+
 VERSION = "1.1.000"
 VERSIONTITLE = 'OpenMATB v' + VERSION
 
@@ -883,8 +888,7 @@ def getConfigValue(key, defaultvalue):
     else:
         return defaultvalue
 
-
-if __name__ == '__main__':
+def startMATB():
     app = QtWidgets.QApplication(sys.argv)
 
     loadConfig()
@@ -893,6 +897,7 @@ if __name__ == '__main__':
         None, VERSIONTITLE + ' - ' + _('Select a scenario'), SCENARIOS_PATH, "(*.txt)")
 
     if os.path.exists(scenario_FullPath):
+        
         pygame.init()
         window = Main(scenario_FullPath)
         window.setWindowTitle(VERSIONTITLE)
@@ -900,6 +905,51 @@ if __name__ == '__main__':
         window.showFullScreen()
         app.installEventFilter(window)
         window.runExperiment()
+        
+        
+
+if __name__ == '__main__':
+    # # THREADING
+    # thread = threading.Thread(target=multiproc_print_test, args=())
+    # thread.daemon = True
+    # thread.start()
+    
+    # # MULTIPROCESSING
+    proc1 = Process(target=startMATB())
+    proc1.start()
+    proc1.join()
+    proc2 = Process(target=multiproc_print_test())
+    proc2.start()
+    proc2.join()
+
+
+        
+    
+    app = QtWidgets.QApplication(sys.argv)
+
+    loadConfig()
+
+    scenario_FullPath, none = QtWidgets.QFileDialog.getOpenFileName(
+        None, VERSIONTITLE + ' - ' + _('Select a scenario'), SCENARIOS_PATH, "(*.txt)")
+
+    if os.path.exists(scenario_FullPath):
+        
+        pygame.init()
+        window = Main(scenario_FullPath)
+        window.setWindowTitle(VERSIONTITLE)
+
+        window.showFullScreen()
+        app.installEventFilter(window)
+        window.runExperiment()
+        
+        # # MULTIPROCESSING
+        # proc1 = Process(target=startMATB())
+        # proc2 = Process(target=multiproc_print_test())
+
+        # proc2.start()
+        # proc1.start()
+        
+
 
     else:
         OSCriticalErrorMessage(_("Error"), _("No scenario selected!"))
