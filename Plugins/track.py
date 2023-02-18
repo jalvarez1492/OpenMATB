@@ -102,6 +102,8 @@ class Task(QtWidgets.QWidget):
             
         # for debugging
         print(index)
+        self.buildLog(["STATE", "ENGAMENENT", "INDEX", str(index)])
+
         # If automatic solver : always correct cursor position
         # if self.parameters['automaticsolver']:
         if index == '1':
