@@ -20,7 +20,7 @@ from Helpers import (QTExtensions, WLight, WPump, WCom,
 from multiprocessing import Process
 from process2 import multiproc_print_test
 import threading
-
+import wavelet
 VERSION = "1.1.000"
 VERSIONTITLE = 'OpenMATB v' + VERSION
 
@@ -909,18 +909,18 @@ def startMATB():
         
 
 if __name__ == '__main__':
-    # # THREADING
-    # thread = threading.Thread(target=multiproc_print_test, args=())
-    # thread.daemon = True
-    # thread.start()
+    # THREADING
+    thread = threading.Thread(target=wavelet.generateEI, args=())
+    thread.daemon = True
+    thread.start()
     
     # # MULTIPROCESSING
-    proc1 = Process(target=startMATB())
-    proc1.start()
-    proc1.join()
-    proc2 = Process(target=multiproc_print_test())
-    proc2.start()
-    proc2.join()
+    # proc1 = Process(target=startMATB())
+    # proc1.start()
+    # proc1.join()
+    # proc2 = Process(target=multiproc_print_test())
+    # proc2.start()
+    # proc2.join()
 
 
         
@@ -941,13 +941,6 @@ if __name__ == '__main__':
         window.showFullScreen()
         app.installEventFilter(window)
         window.runExperiment()
-        
-        # # MULTIPROCESSING
-        # proc1 = Process(target=startMATB())
-        # proc2 = Process(target=multiproc_print_test())
-
-        # proc2.start()
-        # proc1.start()
         
 
 

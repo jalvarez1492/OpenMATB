@@ -3,6 +3,9 @@ from Helpers import WTrack
 from Helpers.Translator import translate as _
 import pygame
 
+# for EI
+import wavelet
+
 class Task(QtWidgets.QWidget):
 
     def __init__(self, parent):
@@ -97,16 +100,17 @@ class Task(QtWidgets.QWidget):
         current_X, current_Y = self.widget.moveCursor()
 
         # Open text file that external script (rt?) will write to
-        with open('EngagementIndex.txt') as EI:
-            index = EI.read()
+        # with open('EngagementIndex.txt') as EI:
+        #     index = EI.read()
             
         # for debugging
-        print(index)
-        self.buildLog(["STATE", "ENGAMENENT", "INDEX", str(index)])
+        EI = wavelet.EI
+        # print(EI)
+        self.buildLog(["STATE", "ENGAMENENT", "INDEX", str(EI)])
 
         # If automatic solver : always correct cursor position
         # if self.parameters['automaticsolver']:
-        if index == '1':
+        if EI >= 2:
             x_input, y_input = self.widget.getAutoCompensation()
 
         # Else record manual compensatory movements
@@ -119,6 +123,8 @@ class Task(QtWidgets.QWidget):
             if self.parameters['assistedsolver']:
                 if any([this_input != 0 for this_input in [x_input, y_input]]):
                     x_input, y_input = self.widget.getAutoCompensation()
+    
+        
 
         
         # Modulate cursor position with potentials joystick inputs
@@ -154,10 +160,10 @@ class Task(QtWidgets.QWidget):
             return (0, 0)
 
     def refreshModeLabel(self):
-        if self.parameters['automaticsolver']:
+        if wavelet.EI >= 2:
             self.modeLabel.setText("<b>%s</b>" % _('AUTO ON'))
-        elif self.parameters['assistedsolver']:
-            self.modeLabel.setText("<b>%s</b>" % _('ASSIST ON'))
+        # elif self.parameters['assistedsolver']:
+        #     self.modeLabel.setText("<b>%s</b>" % _('ASSIST ON'))
         else:
             self.modeLabel.setText("<b>%s</b>" % _('MANUAL'))
         self.modeLabel.show()
