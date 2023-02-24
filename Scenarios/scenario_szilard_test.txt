@@ -53,9 +53,10 @@
 
 # 3.a. System monitoring events
 
-0:00:10;sysmon;scales-1-failure;down
-0:00:30;sysmon;scales-4-failure;up
-0:00:45;sysmon;lights-1-failure;True
+#0:00:10;sysmon;scales-1-failure;down
+#0:00:20;sysmon;scales-4-failure;up
+0:00:05;sysmon;lights-1-failure;True
+0:00:10;sysmon;lights-2-failure;True                    # True makes the right red light turn red
 
 # 3.b. Resources management events
 
@@ -68,8 +69,8 @@
 
 # 3.c. Tracking events
 
-0:00:10;track;automaticsolver;True
-0:00:20;track;automaticsolver;False
+#0:00:10;track;automaticsolver;True
+#0:00:20;track;automaticsolver;False
 
 
 # 3.d. Communications events

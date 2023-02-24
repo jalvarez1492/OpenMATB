@@ -110,7 +110,8 @@ class Task(QtWidgets.QWidget):
 
         # If automatic solver : always correct cursor position
         # if self.parameters['automaticsolver']:
-        if EI >= 2:
+        #if EI >= 2:
+        if wavelet.EI >= wavelet.lastEI: # make sure this matches modellabel function
             x_input, y_input = self.widget.getAutoCompensation()
 
         # Else record manual compensatory movements
@@ -160,7 +161,8 @@ class Task(QtWidgets.QWidget):
             return (0, 0)
 
     def refreshModeLabel(self):
-        if wavelet.EI >= 2:
+        if wavelet.EI >= wavelet.lastEI:   # switch this based on neg or positive feedback
+        #if wavelet.EI >= 2.5:   
             self.modeLabel.setText("<b>%s</b>" % _('AUTO ON'))
         # elif self.parameters['assistedsolver']:
         #     self.modeLabel.setText("<b>%s</b>" % _('ASSIST ON'))
