@@ -14,9 +14,11 @@ def generateEI():
     global EI
     global lastEI 
     
-    # Setup pickle file for post processing data
-    pkl_path = r'C:\Users\Dr. Nicholas Napoli\Desktop\Senior\SeniorDesign\Code\OpenMATB\PickleFilesGoHere\HereActually'
-    filename = str(time.time()) +  '.pickle'
+    # Setup pickle file for analyzing data record afterwards
+    pkl_path = r'C:\Users\Dr. Nicholas Napoli\Desktop\Senior\SeniorDesign\Code\OpenMATB\PickleFilesGoHere\EEGLog'
+    # Pickle files are timestamped at experiment start
+    filename = str(time.time()) +  '_plk'
+    windowNum = 0
 
     # Setup streams and inlets for LSL
     streams = resolve_stream('type', 'EEG')
@@ -30,6 +32,7 @@ def generateEI():
     inlet.flush()
     # Repeat until OpenMATB ends
     while True:
+        # Grab the current chunk from the LSL bridge
         chunk, timeStamps = inlet.pull_chunk()
         if timeStamps:
             # Create empty lists to store data
@@ -87,21 +90,20 @@ def generateEI():
             #print("The last engagement was ",lastEI)
             
             # Save the data for post processing
-            
-            # On the first iteration, the pickle file won't exist. On all others,
-            # we need to first load the current pickle then append all new data
             if os.path.exists(pkl_path + filename):
-                # Pickle file already exists
-                
-                # Load the current pickle
-                
+                # If Pickle file already exists then we load it then we append new data before repickling.
+                with open(pkl_path + filename,'rb') as rfp: 
+                    PrevData = pickle.load(rfp)
                 # Sync the pickle with new data
+                
+                print("PrevData shape: ", np.shape(PrevData))
                 pass
             else: 
-                # Pickle file doesn't exist yet so we just create one and write to it
+                # Pickle file doesn't exist yet on first pass so we just create one and write to it
                 with open(pkl_path + filename, 'wb') as f:
-                    pickle.dump({'timeStamps': timeStamps,'ChannelEngagements':channelsEngIdx,'ChannelAlphas': channelsAlpha,'ChannelBetas': channelsBeta,'ChannelThetas':channelsTheta, }, f)
-            
+                    thisData = {'timeStamps': timeStamps,'channelEngagements':channelsEngIdx,'channelAlphas': channelsAlpha,'channelBetas': channelsBeta,'channelThetas':channelsTheta}
+                    pickle.dump({'Window': {windowNum}, "Data": thisData}, f)
+                    windowNum += 1
             # Latency debugging
             #print(timeStamps)
             #print("The current time is ",time.time())
